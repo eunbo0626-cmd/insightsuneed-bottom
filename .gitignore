@@ -1,0 +1,9 @@
+node_modules
+.next
+.env
+.env*.local
+data/.*-cache.json
+data/.kr-rows.json
+*.log
+.DS_Store
+next-env.d.ts.bak

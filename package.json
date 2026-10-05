@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "bench:kr": "node scripts/build-kr-bench.mjs",
+    "bench:us": "node scripts/build-us-bench.mjs"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
+    "fast-xml-parser": "^5.2.5",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.0.0"
+  },
+  "name": "insightsuneed-check",
+  "private": true
+}
