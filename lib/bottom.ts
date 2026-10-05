@@ -186,7 +186,7 @@ export function readBottom(inp: Input): Bottom {
   // ---------------- 3단계: 차트 진정 ----------------
   const recentLowAge = N - 1 - lo52Idx;
   const sig: { k: string; on: boolean; note: string }[] = [];
-  sig.push({ k: '신저가 멈춤', on: recentLowAge >= 20, note: recentLowAge >= 20 ? `52주 최저가가 ${recentLowAge}거래일 전` : `최근 ${recentLowAge}거래일 안에 52주 최저가` });
+  sig.push({ k: '신저가 멈춤', on: recentLowAge >= 20, note: recentLowAge >= 20 ? `52주 최저가가 ${recentLowAge}거래일 전` : recentLowAge === 0 ? '오늘 52주 최저가' : `최근 ${recentLowAge}거래일 안에 52주 최저가` });
   const lowA = Math.min(...c.slice(N - 20)), lowB = Math.min(...c.slice(N - 60, N - 20));
   sig.push({ k: '저점 높아짐', on: lowA > lowB * 1.01, note: `최근 20일 저점 ${money(lowA, cur)} vs 이전 저점 ${money(lowB, cur)}` });
   let upV = 0, upN = 0, dnV = 0, dnN = 0;
@@ -262,7 +262,7 @@ export function readBottom(inp: Input): Bottom {
   damage.forEach(d => cons.push(d));
   if (pricierByHist) cons.push(`${useMetric}가 과거 결산 시점보다 높아 가격 매력은 크지 않음`);
   if (rel6 !== null && rel6 < -0.15) cons.push(`최근 6개월 ${inp.index?.name ?? '시장'}보다 ${pp(-rel6).replace('+', '')} 더 하락: 이 회사만의 이유가 있을 수 있음`);
-  if (recentLowAge < 20) cons.push(`최근 ${recentLowAge}거래일 안에 52주 최저가 갱신`);
+  if (recentLowAge < 20) cons.push(recentLowAge === 0 ? '오늘 52주 최저가 갱신' : `최근 ${recentLowAge}거래일 안에 52주 최저가 갱신`);
   if (revChg !== null && revChg < -0.1) cons.push(`매출 ${pc(revChg, 0)} 감소`);
   r.flags.filter(f => f.level === 'warning').slice(0, 2).forEach(f => cons.push(`주의 공시: ${f.label}`));
   if (hold) holdReasons.forEach(h => cons.unshift(h));
